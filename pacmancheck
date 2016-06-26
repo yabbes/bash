@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# execute 'checkupdates', log its results to a file alongside
+# executes 'checkupdates', logs its results to a file alongside
 # date stamp to keep track of pacman updates
 #
 
