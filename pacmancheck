@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# executes 'checkupdates', logs its results to a file alongside
+# execute 'checkupdates', log its results to a file alongside
 # date stamp to keep track of pacman updates
 #
 
@@ -10,15 +10,29 @@ function areThereUpdates() {
   if [ $goforit -ge 1 ]; then
     echo "There are $goforit updates available"
     checkupdates >> ~/$LOG
-    printf '\n\n\n' >> ~/$LOG
     echo `checkupdates | sed 's/ .*//'` 'can be updated'
     echo "A list of affected packets has been stored in ~/$LOG"
-
+    pacmanUpdate
   else echo "There are no updates at the moment"
   fi
 }
+function pacmanUpdate(){
+  read -p 'Do you want to do pacman -Syu to update now? Type y or Y' -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+      sudo pacman -Syu && printf '!Executed pacman -Syu !\n' >> ~/$LOG
+    else
+      printf '\n\n\n' >> ~/$LOG
+      echo "Ok, no update now"
+      exit 1
+  fi
+
+}
+
 
 goforit=`checkupdates | wc -l`
 echo `date`>> ~/$LOG
 printf 'Executed checkupdates\n' >> ~/$LOG
 areThereUpdates
+printf '\n\n\n' >> ~/$LOG
