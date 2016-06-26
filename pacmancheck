@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# execute 'checkupdates', log its results to a file alongside
+# date stamp to keep track of pacman updates
+#
+
+LOG=".pacmanlog"
+
+function areThereUpdates() {
+  if [ $goforit -ge 1 ]; then
+    echo "There are $goforit updates available"
+    checkupdates >> ~/$LOG
+    printf '\n\n\n' >> ~/$LOG
+    echo `checkupdates | sed 's/ .*//'` 'can be updated'
+    echo "A list of affected packets has been stored in ~/$LOG"
+
+  else echo "There are no updates at the moment"
+  fi
+}
+
+goforit=`checkupdates | wc -l`
+echo `date`>> ~/$LOG
+printf 'Executed checkupdates\n' >> ~/$LOG
+areThereUpdates
