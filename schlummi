@@ -1,0 +1,6 @@
+#! /bin/bash
+# petit script pour quand j'ai trop sommeil pour taper toute la commande moi-même
+
+echo 'wie lang soll der pc denn noch anbleiben?' 
+read TIME
+sudo shutdown -P $TIME
