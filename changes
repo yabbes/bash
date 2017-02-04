@@ -1,0 +1,12 @@
+#! /bin/bash
+
+
+FOLDER=${PWD}
+
+while true
+do
+	sleep 5
+	echo -e "\n\n New Status in $FOLDER \n\n"
+	du -h * | sort -nr
+done
+
